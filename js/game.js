@@ -75,11 +75,21 @@
   function dealPrompts() {
     let recent = [];
     try { recent = JSON.parse(localStorage.getItem(SEEN_KEY) || '[]'); } catch { }
-    const all = window.PROMPTS.slice();
     const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-    const fresh = shuffle(all.filter((p) => !recent.includes(p.id)));
-    const stale = shuffle(all.filter((p) => recent.includes(p.id)));
-    const set = fresh.concat(stale).slice(0, PER_GAME);
+    // fresh prompts first, then ones from your last game if a level runs short
+    const pools = {};
+    shuffle(window.PROMPTS.slice()).forEach((p) => (pools[p.level] = pools[p.level] || []).push(p));
+    Object.values(pools).forEach((pool) => pool.sort((x, y) => recent.includes(x.id) - recent.includes(y.id)));
+    const plan = window.DEAL || Array(PER_GAME).fill(2);
+    const set = [], families = new Set();
+    plan.forEach((lvl) => {
+      const pool = pools[lvl] || [];
+      const k = pool.findIndex((p) => !families.has(p.family));
+      const pick = k >= 0 ? pool.splice(k, 1)[0] : null;
+      if (pick) { set.push(pick); families.add(pick.family); }
+    });
+    // top up from anything left if a level was short
+    shuffle(window.PROMPTS.filter((p) => !set.includes(p) && !families.has(p.family))).slice(0, PER_GAME - set.length).forEach((p) => set.push(p));
     try { localStorage.setItem(SEEN_KEY, JSON.stringify(set.map((p) => p.id))); } catch { }
     return set;
   }
