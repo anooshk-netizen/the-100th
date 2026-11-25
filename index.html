@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 100th</title>
+<meta name="description" content="One sheep is lost. The 99 are safe. A daily rare-answer Bible trivia game: help the Shepherd find the one.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&family=Shantell+Sans:ital,wght,BNCE,INFM@0,300..800,-100..100,0..100;1,300..800,-100..100,0..100&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="assets/sheep.png">
+</head>
+<body>
+
+<!-- shared drawing materials -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="watercolor" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency=".022" numOctaves="4" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" seed="9" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.32" result="ga"/>
+      <feComposite in="d" in2="ga" operator="in" result="grain"/>
+      <feGaussianBlur in="grain" stdDeviation=".5"/>
+    </filter>
+    <filter id="ink" x="-4%" y="-4%" width="108%" height="108%">
+      <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="2" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="boil" x="-10%" y="-30%" width="120%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="1" result="t">
+        <animate class="boil-anim" attributeName="seed" values="1;2;3;4" dur=".52s" calcMode="discrete" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="wash-edge" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="12" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="22" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <radialGradient id="lanternGlow">
+      <stop offset="0" stop-color="#FFE7A3" stop-opacity=".95"/>
+      <stop offset=".45" stop-color="#F6C453" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#F6C453" stop-opacity="0"/>
+    </radialGradient>
+    <symbol id="daisy" viewBox="-10 -10 20 20">
+      <g fill="#A992D6" stroke="#1F1C2C" stroke-width=".6">
+        <ellipse rx="2.6" ry="5" cy="-4.6"/><ellipse rx="2.6" ry="5" cy="-4.6" transform="rotate(72)"/><ellipse rx="2.6" ry="5" cy="-4.6" transform="rotate(144)"/><ellipse rx="2.6" ry="5" cy="-4.6" transform="rotate(216)"/><ellipse rx="2.6" ry="5" cy="-4.6" transform="rotate(288)"/>
+      </g>
+      <circle r="2.3" fill="#F2C94C" stroke="#1F1C2C" stroke-width=".6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <a class="wordmark" href="#top" aria-label="The 100th, home">
+    <span class="wordmark-sheep" aria-hidden="true"></span>
+    <span>The 100<sup>th</sup></span>
+  </a>
+  <nav aria-label="Sections">
+    <a href="#how">How to play</a>
+    <a href="#rooms">Groups</a>
+  </nav>
+  <button class="btn btn--small" data-play>Play today</button>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-copy">
+    <p class="kicker"><span class="kicker-rule" aria-hidden="true"></span>A daily search · Luke 15:3–7</p>
+    <h1 class="hero-title">
+      <span class="line"><span class="w">One</span> <span class="w">sheep</span> <span class="w">is</span> <span class="w">lost.</span></span>
+      <span class="line line--soft"><span class="w">The</span> <span class="w">99</span> <span class="w">are</span> <span class="w">safe.</span></span>
+    </h1>
+    <p class="hero-lede">Help the Shepherd find <span class="scribble-under">the one<svg viewBox="0 0 200 18" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 40 4, 80 15, 120 8 S 180 6, 197 10" pathLength="1"/></svg></span>. Every answer is a trip out into the pasture. The deeper your answer, the further he can search.</p>
+    <div class="hero-actions">
+      <button class="btn btn--big" data-play>
+        <span>Start today's search</span>
+        <svg class="btn-lantern" viewBox="-8 -10 16 18" aria-hidden="true"><circle r="8" fill="url(#lanternGlow)"/><path d="M-3 -4 L3 -4 L2.4 4 L-2.4 4Z" fill="#F6D37A" stroke="#1F1C2C" stroke-width="1"/><path d="M-2 -6.5 Q0 -9 2 -6.5" stroke="#1F1C2C" fill="none"/></svg>
+      </button>
+      <a class="link-ink" href="#rooms">or play with a group</a>
+    </div>
+    <p class="hero-meta">7 prompts <i>·</i> 25 seconds each <i>·</i> about 4 minutes</p>
+  </div>
+
+  <div class="hero-field">
+    <div class="pasture pasture--hero" id="heroPasture"></div>
+    <p class="hand-note hand-note--hero" aria-hidden="true">
+      Move your lantern<br>over the pasture.
+      <svg viewBox="0 0 80 50"><path d="M4 4 C 10 30, 34 42, 64 40 M64 40 l-9 -7 M64 40 l-10 6" pathLength="1"/></svg>
+    </p>
+    <figure class="sheep-says" id="heroSheep">
+      <img src="assets/sheep.png" alt="A woolly sheep with a navy face holds a purple daisy in its mouth." width="499" height="499">
+      <figcaption class="bubble" aria-live="polite"><span class="bubble-text"></span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<p class="hook" data-reveal="rise">
+  <span class="hook-star" aria-hidden="true">✶</span>
+  <b>The 100th Sheep:</b> an answer fewer than 1 in 100 players found.
+</p>
+
+<!-- ============ RINGS ============ -->
+<section class="rings" id="how">
+  <div class="section-head">
+    <h2 data-reveal="rise"><span class="eyebrow">How to play</span>Six rings of pasture,<br><em>one lost sheep</em></h2>
+    <p data-reveal="rise">Rarity is the share of players who gave the same answer to the same prompt. Say what everyone says and the Shepherd stays by the fold. Say what almost nobody says and he walks all the way out to the starlit edge.</p>
+  </div>
+
+  <div class="walk" id="ringWalk">
+    <svg class="walk-trail" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+      <path id="walkPath" d="M20 70 C 120 20, 180 100, 260 64 S 400 26, 460 70 S 620 104, 680 60 S 820 22, 880 66 S 1060 100, 1180 52" pathLength="1"/>
+    </svg>
+    <div class="walk-shepherd" id="walkShepherd" aria-hidden="true"></div>
+    <ol class="stops">
+      <li class="stop" style="--c:#EDC873"><span class="stop-pts">10</span><h3>The Fold</h3><p class="stop-rule">20% or more said it</p><p class="stop-line">Warm and golden. The 99 are safe here.</p></li>
+      <li class="stop" style="--c:#E6D3A0"><span class="stop-pts">15</span><h3>The Gate</h3><p class="stop-rule">10 to 20%</p><p class="stop-line">"14% of players also thought they were being clever."</p></li>
+      <li class="stop" style="--c:#A8BF83"><span class="stop-pts">30</span><h3>Green Pastures</h3><p class="stop-rule">5 to 10%</p><p class="stop-line">Solid, everyday Bible knowledge.</p></li>
+      <li class="stop" style="--c:#B9AD93"><span class="stop-pts">60</span><h3>Rocky Hills</h3><p class="stop-rule">2.5 to 5%</p><p class="stop-line">Deeper recall.</p></li>
+      <li class="stop stop--dark" style="--c:#3A4566"><span class="stop-pts">85</span><h3>Dark Ravine</h3><p class="stop-rule">1 to 2.5%</p><p class="stop-line">Real deep cuts.</p></li>
+      <li class="stop stop--dark stop--star" style="--c:#1F2744"><span class="stop-pts">100</span><h3>The 100th Sheep</h3><p class="stop-rule">Under 1%</p><p class="stop-line">Literally one sheep in a hundred. He carries it home.</p></li>
+    </ol>
+  </div>
+
+  <aside class="thorn-note" data-reveal="tilt">
+    <svg class="thorn-art" viewBox="-30 -26 60 44" aria-hidden="true"><path d="M0 14 Q-6 0 -22 -6 M0 14 Q2 -4 -6 -20 M0 14 Q8 -2 20 -12 M0 14 Q12 6 26 4 M0 14 Q-12 8 -26 10 M-14 -2 l-3 -4 M-3 -10 l3 -3 M11 -5 l4 -1 M16 6 l3 3 M-16 9 l-2 4" pathLength="1"/></svg>
+    <p><b>Thornbush, 0 points.</b> Blank or invalid answers snag the Shepherd in the thorns. Going for a deep cut you aren't sure of can cost you, so know your Shamgar from your Shimei.</p>
+  </aside>
+</section>
+
+<!-- ============ ROUND ============ -->
+<section class="round" id="round">
+  <div class="section-head section-head--left">
+    <h2 data-reveal="rise">Thirty-five seconds<br>a round</h2>
+    <p data-reveal="rise">Seven prompts, one answer each. The bar below is drawn to scale.</p>
+  </div>
+  <div class="timeline">
+    <div class="tl-bar" aria-hidden="true">
+      <span class="tl-seg tl-read" style="--g:3"></span>
+      <span class="tl-seg tl-answer" style="--g:25"></span>
+      <span class="tl-seg tl-check" style="--g:3"></span>
+      <span class="tl-seg tl-reveal" style="--g:5"></span>
+      <span class="tl-lantern"><svg viewBox="-10 -10 20 20"><circle r="10" fill="url(#lanternGlow)"/><circle r="3" fill="#FBE3A0" stroke="#1F1C2C"/></svg></span>
+    </div>
+    <ol class="tl-labels">
+      <li style="--g:3"><span class="tl-t">3s</span><b>Read</b><span>The prompt appears.</span></li>
+      <li style="--g:25"><span class="tl-t">25s</span><b>Answer</b><span>Type one answer. Lock it in early if you're sure. No autocomplete, because it would give the answers away.</span></li>
+      <li style="--g:3"><span class="tl-t">≤3s</span><b>Check</b><span>"Did you mean Zerubbabel?" One tap. The clock waits.</span></li>
+      <li style="--g:5"><span class="tl-t">5s</span><b>Reveal</b><span>Your Shepherd walks out. Verse, percentage, and one deep cut you can learn from.</span></li>
+    </ol>
+  </div>
+  <div class="spelling" data-reveal="rise">
+    <p class="spelling-big">Mephibosheth.<br>Nebuchadnezzar.<br><span class="spelling-typo">Zerubabel<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 q 5 -6 10 0 t 10 0 t 10 0 t 10 0 t 10 0 t 10 0 t 10 0 t 10 0 t 10 0 t 10 0" pathLength="1"/></svg></span></p>
+    <p>Small spelling mistakes are forgiven.</p>
+  </div>
+</section>
+
+<!-- ============ THEME ============ -->
+<section class="theme">
+  <blockquote data-reveal="rise">
+    <p>“What man of you, having a hundred sheep, if he has lost one of them, does not leave the ninety-nine in the wilderness, and go after the one which is lost, until he finds it?”</p>
+    <cite>Luke 15:4</cite>
+  </blockquote>
+  <div class="theme-side" data-reveal="rise">
+    <p>Nobody in this game strays. The sheep is already lost when you arrive. Your answers are the Shepherd's lantern, and each one lights a little more of the ground.</p>
+    <p class="hand">“I will seek the lost.” <span>Ezekiel 34:16</span></p>
+  </div>
+</section>
+
+<!-- ============ CANON ============ -->
+<section class="canon" id="canon">
+  <div class="section-head section-head--left">
+    <h2 data-reveal="rise">Famous names that<br><em>never made it in</em></h2>
+    <p data-reveal="rise">Answers come from the 73 books of the Catholic Bible. Tobit, Judith, the Maccabees, Wisdom, Sirach and Baruch all count in full. Tradition is beautiful, but it lands in the Thornbush.</p>
+  </div>
+  <ul class="struck">
+    <li data-strike><span class="name">Caspar, Melchior, Balthasar<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M2 18 C 60 10, 120 22, 180 14 S 260 12, 298 16 M6 22 C 90 16, 190 20, 294 12" pathLength="1"/></svg></span><span class="margin">Matthew 2:1 just says “wise men from the East.”</span></li>
+    <li data-strike><span class="name">Dismas<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M2 16 C 80 8, 160 24, 298 14 M4 20 C 120 14, 220 22, 296 12" pathLength="1"/></svg></span><span class="margin">The good thief has no name in Luke 23.</span></li>
+    <li data-strike><span class="name">Longinus<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M2 14 C 90 22, 170 8, 298 18 M6 20 C 100 12, 200 24, 294 14" pathLength="1"/></svg></span><span class="margin">The centurion at the cross is never named (Mark 15:39).</span></li>
+    <li data-strike><span class="name">Anne &amp; Joachim<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M2 16 C 70 10, 150 22, 298 14 M4 21 C 110 15, 210 21, 296 13" pathLength="1"/></svg></span><span class="margin">Mary's parents come from the Protoevangelium of James.</span></li>
+    <li data-strike><span class="name">the apple<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M2 18 C 90 10, 180 22, 298 14 M6 20 C 100 16, 200 18, 294 12" pathLength="1"/></svg></span><span class="margin">Genesis 3:6 only says “the fruit.”</span></li>
+  </ul>
+  <p class="canon-foot" data-reveal="rise">Every prompt ships with written rulings. <b>Judge of Israel:</b> Eli and Samuel count, Barak doesn't. <b>Apostle:</b> Matthias counts. Paul counts, with a note.</p>
+</section>
+
+<!-- ============ ROOMS ============ -->
+<section class="rooms" id="rooms">
+  <div class="rooms-grid">
+    <div class="rooms-copy">
+      <h2 data-reveal="rise">Party rooms</h2>
+      <p class="rooms-lede" data-reveal="rise">2 to 30 players, one code, one sheep. All the Shepherds walk out together, so you see the collisions as they happen.</p>
+      <div class="code" data-reveal="stamp" aria-label="Example room code LAMB"><span>L</span><span>A</span><span>M</span><span>B</span></div>
+      <dl class="ledger">
+        <div data-reveal="rise"><dt>Lone Sheep</dt><dd class="amt">+10</dd><dd class="why">Nobody else in the room said it. A tiebreak, not the main score.</dd></div>
+        <div data-reveal="rise"><dt>Crowd Collision</dt><dd class="amt">½</dd><dd class="why">Two or more of you said the same thing. Each gets half the ring points.</dd></div>
+        <div data-reveal="rise"><dt>Shepherd's Rescue</dt><dd class="amt">+1 ring</dd><dd class="why">If nobody finds the 100th Sheep, last place's Shepherd steps one ring further out.</dd></div>
+      </dl>
+    </div>
+    <div class="rooms-stage">
+      <div class="pasture pasture--room" id="roomPasture"></div>
+      <ol class="room-answers" id="roomAnswers" aria-label="Example room answers to: Name a judge of Israel"></ol>
+      <button class="link-ink replay" id="roomReplay" type="button">Play the room again</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="closer">
+  <figure class="sheep-says sheep-says--closer" id="closerSheep">
+    <img src="assets/sheep.png" alt="" width="499" height="499">
+    <figcaption class="bubble"><span class="bubble-text">Still out here. Come find me?</span></figcaption>
+  </figure>
+  <div class="closer-copy">
+    <h2 data-reveal="rise">Today's sheep is<br><em>still out there.</em></h2>
+    <button class="btn btn--big" data-play><span>Start today's search</span></button>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <p class="foot-verse">“Rejoice with me, for I have found my sheep which was lost.” <span>Luke 15:6</span></p>
+  <p class="foot-small">Playable preview. Rarity numbers are placeholder estimates until the seed survey runs with church groups. Scripture quotations follow the RSV-2CE.</p>
+</footer>
+
+<!-- ============ GAME ============ -->
+<div class="game" id="game" hidden role="dialog" aria-modal="true" aria-labelledby="gTitle">
+  <header class="g-top">
+    <p class="g-brand" id="gTitle">The 100<sup>th</sup> <span class="g-day" id="gDay"></span></p>
+    <ol class="g-dots" id="gDots" aria-label="Progress"></ol>
+    <p class="g-score" aria-live="polite"><span id="gScore">0</span><small>/700</small></p>
+    <button class="g-close" id="gClose" aria-label="Close the game">
+      <svg viewBox="0 0 24 24"><path d="M5 5 C 9 9, 14 14, 19 19 M19 5 C 15 9, 10 14, 5 19"/></svg>
+    </button>
+  </header>
+
+  <div class="g-stage">
+    <div class="g-map"><div class="pasture pasture--game" id="gMap"></div><p class="g-fold-count" id="gFoldCount">99 safe in the fold</p></div>
+
+    <div class="g-panel">
+      <!-- intro -->
+      <section class="g-intro" id="gIntro">
+        <p class="g-eyebrow">Daily Bible</p>
+        <h2>Today's lost sheep is somewhere past the Dark Ravine.</h2>
+        <p>Seven prompts. 25 seconds each. Give the answer you think few others will, but it has to be right. One answer per prompt.</p>
+        <label class="switch">
+          <input type="checkbox" checked id="gBibleOnly">
+          <span class="switch-track" aria-hidden="true"><span class="switch-knob"></span></span>
+          <span class="switch-label">Bible Only</span>
+        </label>
+        <button class="btn btn--big" id="gStart"><span>Begin the search</span></button>
+      </section>
+
+      <!-- round -->
+      <section class="g-round" id="gRound" hidden>
+        <p class="g-eyebrow" id="gRoundN"></p>
+        <h2 class="g-prompt" id="gPrompt"></h2>
+        <form class="g-form" id="gForm" autocomplete="off">
+          <label class="sr-only" for="gInput">Your answer</label>
+          <span class="g-field">
+            <input id="gInput" type="text" autocomplete="off" autocapitalize="words" spellcheck="false" maxlength="40" placeholder="Wait for it…" disabled>
+            <svg class="g-underline" viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 6 C 80 2, 160 9, 240 5 S 360 3, 398 6"/></svg>
+          </span>
+          <button class="btn" id="gLock" disabled>Lock it in</button>
+        </form>
+        <div class="g-wick" aria-hidden="true">
+          <svg viewBox="0 0 400 30" preserveAspectRatio="none"><path id="gWickPath" d="M4 18 C 70 12, 130 22, 200 16 S 330 12, 396 18" pathLength="1"/></svg>
+          <span class="g-flame" id="gFlame"><svg viewBox="-10 -16 20 24"><circle r="9" cy="-2" fill="url(#lanternGlow)"/><path d="M0 -12 C 5 -5, 5 2, 0 4 C -5 2, -5 -5, 0 -12Z" fill="#F6B73C" stroke="#1F1C2C" stroke-width=".8"/><path d="M0 -6 C 2 -3, 2 1, 0 2 C -2 1, -2 -3, 0 -6Z" fill="#FFF1C2"/></svg></span>
+        </div>
+        <p class="g-time"><span id="gTime">25</span> seconds of oil left</p>
+
+        <div class="g-dym" id="gDym" hidden role="alertdialog" aria-labelledby="gDymText">
+          <p id="gDymText">Did you mean <b id="gDymName"></b>?</p>
+          <div><button class="btn btn--small" id="gDymYes">Yes</button><button class="link-ink" id="gDymNo" type="button">No, let me fix it</button></div>
+        </div>
+
+        <div class="g-reveal" id="gReveal" hidden aria-live="polite"></div>
+      </section>
+
+      <!-- end -->
+      <section class="g-end" id="gEnd" hidden></section>
+    </div>
+  </div>
+  <div class="g-rejoice" id="gRejoice" hidden><p>Rejoice with me,<br>for I have found my sheep<br>which was lost.</p><span>Luke 15:6</span></div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/data-more.js"></script>
+<script src="js/pasture.js"></script>
+<script src="js/game.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
